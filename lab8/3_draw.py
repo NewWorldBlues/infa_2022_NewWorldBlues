@@ -17,12 +17,9 @@ circle(screen, center=(150, 180), radius=9, color='black')
 circle(screen, center=(250, 180), radius=15, color='red')
 circle(screen, center=(250, 180), radius=7, color='black')
 circle(screen, center=(250, 180), radius=15, color='black', width=1)
-x1 = 100
-y1 = 100
-x2 = 200
-y2 = 200
 polygon(screen, color='black', points=[(180, 180), (187, 173), (107, 103), (100, 110)])
-
+polygon(screen, color='black', points=[(220, 170), (227, 177), (307, 117), (300, 110)])
+rect(screen, color='black', rect=(140, 250, 120, 20))
 pygame.display.update()
 clock = pygame.time.Clock()
 finished = False
