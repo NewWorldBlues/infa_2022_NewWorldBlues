@@ -189,10 +189,14 @@ class Target:
                 screen.blit(c, (250, 300))
                 self.x = 1000
                 self.y = 1000
+                self.vx = 0
+                self.vy = 0
             else:
                 self.x = randint(600, 780)
                 self.y = randint(300, 550)
                 self.r = randint(2, 50)
+                self.vx = randint(1, 10)
+                self.vy = randint(1, 10)
                 self.color = RED
                 self.live = 1
 
@@ -200,6 +204,20 @@ class Target:
         """Add a point to the score after hitting the target.
         """
         self.points += points
+
+    def reflection(self):
+        """Reflection of the target after hitting the edge of the screen.
+        """
+        if self.x + self.r >= 800 or self.x - self.r <= 400:
+            self.vx = -self.vx
+        if self.y + self.r >= 600 or self.y - self.r <= 0:
+            self.vy = -self.vy
+
+    def movement(self):
+        """Movement of the target with every frame.
+        """
+        self.x += self.vx
+        self.y += self.vy
 
     def draw(self):
         """Draws a new target.
@@ -242,8 +260,14 @@ while not finished:
     current_time = pygame.time.get_ticks()
     screen.fill(WHITE)
     gun.draw()
+
+    target1.reflection()
+    target2.reflection()
+    target1.movement()
+    target2.movement()
     target1.draw()
     target2.draw()
+
     score_counter()
 
     for b in balls_with_time.keys():
@@ -275,16 +299,14 @@ while not finished:
             target2.live = 0
             time_of_hitting = pygame.time.get_ticks()
             target1.hit()
-
     target1.new_target(a=time_of_hitting,
-                      b=target1.live,
-                      c=amount_of_balls)
+                       b=target1.live,
+                       c=amount_of_balls)
     target2.new_target(a=time_of_hitting,
-                      b=target2.live,
-                      c=amount_of_balls)
+                       b=target2.live,
+                       c=amount_of_balls)
 
     cleaning_the_bin()
     pygame.display.update()
     gun.power_up()
-
 pygame.quit()
