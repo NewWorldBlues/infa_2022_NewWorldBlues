@@ -258,7 +258,7 @@ while not finished:
             gun.fire2_start(event)
         elif event.type == pygame.MOUSEBUTTONUP and target.live:
             gun.fire2_end(event)
-        elif event.type == pygame.MOUSEMOTION:
+        elif event.type == pygame.MOUSEMOTION and target.live:
             gun.targeting(event)
 
     for b in balls_with_time.keys():
